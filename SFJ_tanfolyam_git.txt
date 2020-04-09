@@ -1,0 +1,137 @@
+SFJ_tanfolyam_git
+
+1.video
+repository: raktár/könyvtár
+
+2.video
+-központosított verziókezelõ->CVCS (pl. SVN)
+	- központi repository van, itt mindig kell az internet kapcsolat a commit-
+	  hoz, nincs push és pull, a commit közvetlenül a repoba kerül
+-megosztott verziókezelõ->DVCS (pl. GIT)
+	- létrejön mindenki gépén egy local repository, a commitok ebbe kerülnek bele,
+	  így nem kell folyamatosan az internetkapcsolat
+	- csak a push-hoz kell, amikor a remote repositoryba küldjük a módosítást
+	- nagyobb helyet foglal a gépen a local repository miatt
+        - conflict
+        - pull: friss verzió a központi repobol a sajátomba, hogy lássam más változta-
+	  tásait
+
+3.video
+cmd-> systeminfo
+git letöltése:
+	git Bash
+	git GUI
+Cygwin - Linux commandok használata a terminál ablakon belül (java szerverek telepítésénél kell)
+try.github.io 
+Teszt Project:
+	Nem feltétlenül kell egy távoli szerver, ha saját munkát csinálok, a saját gépemen és
+	csak verziózni szeretném de nem megosztani elég ha az én gépemen van egy helyi repository
+
+	cd.. ->visszalép
+	cd könyvtár -> adott könyvtárba lép
+	dir (linux: ls -> cygwin-el mûködik windos-on is) -> listáz
+	mkdir -> mappa létrehozása
+	cls -> cmd ablak törlése (linux: clear)
+
+	Létrehozunk egy üres repositoryt: git init
+	git status: infót ad vissza a repositoryról (ebben a könyvtárban kell állnunk)
+	Létrehozunk egy fájlt: type nul > text.txt
+	
+4.video
+Teszt Project:
+	Hozzáadjuk a fájluknat a git-hez: git add text.txt ---> elsõ lépésben nem kerül bele a 
+	repositoryba, hanem csak egy úgynevezett színpadra és ezután majd amikor commitolom, akkor 
+	kerül be a helyi repositorymba az új fájl. Rétegesen célszerû commitolni, vagyis feladat egységenként.
+	A git status zölddel jelzi ami a színpadon van de még nincs commitolva és pirossal ami
+	még nincs hozzáadva egyáltalán.
+
+	Commit: git commit -m "Rövid megjegyzés, hogy mit csináltam"
+
+5.video
+Teszt Project:
+	Tömeges színpadra küldés:
+		git add *.txt  - minden pirosat
+
+	git log: milyen commitok történtek az adott repositoryban
+
+	Hozzá tudjuk kötni a repositorynkat egy szerver oldali repositoryhoz (távoli). 
+	Csatlakozás a távolihoz: git remote add origin (a szerver linkje) ----> ezzel kötjük magunk hozzá a távoli szerverhez
+	A meglévõ commitjainkat pedig át szeretnénk tenni a távoli repoba is:
+		git push -u origin master: a -u azt jelenti hogy ezt jegyezze meg hogy hová pusholtam, így övetkezõ alkalommal 
+		nem kell megadni a branchet csak git push
+
+6.video
+Teszt Project:
+GitHub teszt
+	git config: beállítások
+	git config --global user.email -> milyen email cím van beállítva
+	git config --global user.email "ide hogy mi legyen az új" -> módosítás
+	git config --global user.name -> ezen a néven mennek a vommitjaim
+	git config --global user.name "név beállítása" -> módosítás
+
+	Hozzáadás a távoli repohoz: 
+		1. normál helyzetben elõbb van meg a remote repository (pl munkahely) és ebbõl csinálunk helyit
+			a. Github repo létrehozás Teszt + fájlok bele
+			b. git clone elérési út (link a githubból) --> abban a mappában legyünk ahová menteni szeretnénk
+				ez lesz a localis repository			
+		2. ritkán elõbb van meg a helyi és aztán a távoli
+			a. saját gépen létrehoztuk az SFJ_GIT repot
+			b. tettünk bele 3 fájlt, volt commit már
+			c. Githubban new repository Teszt néven
+			d. Összekötés: git remote add origin https://github.com/FiglerReNi/Teszt.git
+			e. git push origin master --> hibaüzenet, ami arra figyelmetet, hogy vannak olyan dolgok amik a távoliban
+						      ott vannak de az én repomba nem (readme file miatt)
+			f. az elõzõ miatt elõbb le kell húzni a távoli repot: git pull origin master ha erre hibát dob a 
+			   övetezõvel fog mûködni: git pull origin master --allow-unrelated-histories
+			g. újra próbálhatom a push-t
+			h. ha nem volt commit még a helyi repoban akkor nem lesz hibaüzenet pull-nál
+	
+	A fõ branch a master, emellett bármennyi branchet létrehozhatunk.
+	
+	mappa törlése: rmdir /S útvonal
+	
+7.video
+	git diff HEAD: az elõzõ commithoz hasonlít és az összes fájlt nézi
+	git diff fájlnév: ha egyetlen fájlal kapcsolatban vagyunk kíváncsiak a különbségre az utolsó commithoz fogja itt is 
+			  hasonlítani (zöld-> hozzáadás; piros-> törlés). Ez csak akkor mûködik, ha még nincs színpadon a fájl,
+			  a git add fájlnév paranccsal küldük színpadra.
+	git diff --staged: azokon a fájlokon mutatja meg a különbségeket amik színpadon vannak. Az összeset nézi.
+	git diff --cached fájénév: a színpadon lévõ fájlok közül csak egynek érdekel a különbsége.
+        git reset fájlnév: ezzel tudjuk levenni a színpadról a fájlt, de a változtatások megmaradnak benne (commitban így nem lesz benne)
+	git checkout -- fájlnév: ha a változtatásokra sincs szükség, akkor ezzel tudunk visszaállni a fájlban az eredeti
+				 állapotra.
+
+8.video
+Branchek
+	A repositoryban lehet több branch, egy mindig van ez a fõ ezt master-nek hívjuk. A local repoban és a távolin is leh-
+        hetnek ezen kívül branchek. A localon annyit hozok létre amennyit akarok a különbözõ feladatokhoz, azokat csak én látom.
+	Általában a távolin a következõk vannak:
+		-master: ezt látják a felhasználók
+		-dev: fejlesztõi környezet, ide rakják fel a fejlesztõ a dolgaikat és ha minden jó innen kerül a masterbe.
+		-lehet egyéb is pl. tesztereknek stb.
+	Branch létrehozása:
+		-git branch branch_neve
+	Melyi branch aktív:
+		-git branch (zölddel jelzi + *)
+	Váltás másik branchre:
+		-git checkout branch_neve
+	Törlés (pl az összes txt fájlt):
+		-git rm *.txt: az adott branchben az összes mappából törli a txt fájlokat, és a hiányukat felteszi a színpadra
+		-git commit -m 'remove all txt' - a törlést commitoljuk is -> ezzel küldjük el az infomációt a helyi
+						  repository-nak, abban a branchben amin állunk. A másik brancheket ez nem 
+						  érinti, ott megvannak a fájlok továbbra is.
+ 	Ha szeretnénk hogy egy módosítás ne csak abban a branchben éljen amin állunk és amiben csináltuk, hanem egy másik helyi
+	branchben is össze tudjuk fésülni:
+		-git merge branch_neve_amit_belepakolunk_abba_amin_állunk (tehát elõször át kell lépnünk arra amelyikbe bele
+									   szeretnénk tenni a módosításokat)
+		git push:  felküldjük a távoli repoba a módosításokat
+        Branch törlése:
+		-git branch -d branch_neve
+        
+9.video
+	
+
+	
+
+	
+	
