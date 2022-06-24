@@ -1,3 +1,61 @@
+Project létrehozása:
+  	1. github: new repository
+  	2. readme file létrehozása + gitignore stb
+  	3. phpstorm: projekt behúzása
+  		? Git -> Clone
+  		? Alap local branchek megcsinálása
+  		? Saját local brancs amiben dolgozunk
+
+  Fontos:
+  	• a teszt branchet sosem rakjuk bele az élesbe
+  	• a saját brancsünket mindig a frissen updatelt main/master/stable brancsbõl csináljuk
+  	• minidg a saját brancset rakjuk a tesztbe majd ha minden jó az élesbe
+  	• ha hosszabb ideig dolgozunk egy brancsen érdemes kirakni originbe, hogy ha valami történik a stormmal akkor se vesszen el semmi
+
+  Lépések:
+  	1. main ctrl + T
+  	2. mainbõl új saját brancs
+  	3. saját ctrl + K commit
+  	4. main ctrl + T
+  	5. main merge into saját
+  	6. teszt ctrl + T
+  	7. saját merge into teszt
+  	8. main ctrl + T
+  	9. main merge into saját
+    10. saját merge into main
+
+Parancsok:
+git checkout <branch név> - váltás az ágak között
+git branch - kiírja melyik ágban vagyunk, csillagot tesz elé
+git branch <új branch neve> - abból az ágból amin állunk csinál egy új branchet, de nem vált rá át automatikusan
+git branch -d <branch neve> - törli a branchet, de ha van benne valami változtatás akkor nem
+git branch -D <branch neve> - mindenképp törli a branchet
+git status - szintén megadja melyik ágon állunk
+git checkout <commit hivatkozási száma> - megnézhetjük, hogyan nézett ki a project  adott commit idõpontjában, ilyenkor ez egy leválasztott ág lesz, ezen nem tudunk commitot kiadni
+git checkout -- <file név> - egy adott branchen belül csak egy file módosításait akarjuk visszaállítani commit elõtt, ilyenkor a legutóbbi commit állapotára írja felül az adott file-t
+git checkout -b <új branch neve> - abból az ágból amin állunk csinál egy új branchet és át is vált erre az újra
+git log --stat -- <file név> - az adott filehoz tartozó összes commit, ameddig nem volt átmozgatva a file
+git log --stat -M --follow -- <fole név> - az adott filehoz tartozó összes commit, az esetleges átmozgatás elõttiek is
+git log - összes commit kilistázása
+git log --online - összes commit kilistázása részletek nélkül
+git log --stat - összes commti kilistázása, kiírja azt is adott commit melyik file-t változtatta
+git log --patch - konkrétan kiírja a változásokat az adott commithoz
+git log --patch --online - a fenti log parancsok kombinálhatóak, így kiírja a részletes változásokat, de a commitról a részleteket nem
+git diff - az aktuális ágon írja ki a különbségeket, amik még nincsenek commitolva
+git diff --staged - az utolsó commithoz képest írja ki a különbségeket amiket most elcommitoltunk ahhoz képest
+git diff HEAD - az utolsó commit óta minden módosítás
+git diff --color-words - a különbségben nem az egész sort szinezi ki, csak azt ami változott
+git diff --word-diff - a különbséget összevonja egy sorba és csak azt szinezi ki ami változott
+git diff --stat - csak a file nevét írja ki ami változott
+
+Github:
+  Fork:
+  	Valakinek a github repositoriját le tudjuk másolni a saját github account-unk alá ezzel.
+    Két repo egy projektben:
+      IntelliJ-ben a saját repositorimhoz amin dolgozok, hozzá tudok csatolni egy másik repository-t hogy például különbségeket tudjak figyelni branchek között.  Például a saját githubomra átmásolt projekthez amin dolgozok, hozzá tudom húzni az eredeti forrás github projektet
+        1. git remote add <név> <url>
+        2. git fetch <név>
+
 SFJ_tanfolyam_git
 
 1.video
@@ -128,7 +186,7 @@ Branchek
         Branch törlése:
 		-git branch -d branch_neve
         
-9.video
+
 	
 
 	
