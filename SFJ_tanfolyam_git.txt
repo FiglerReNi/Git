@@ -1,3 +1,8 @@
+https://git-scm.com/download/win
+https://github.com
+https://dev.to/puritanic/how-are-you-writing-a-commit-message-1ih7
+https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716
+
 Project létrehozása:
   	1. github: new repository
   	2. readme file létrehozása + gitignore stb
